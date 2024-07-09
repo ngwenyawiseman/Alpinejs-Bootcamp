@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Widgets</title>
+  <script src="greet.js"></script>
+  <script src="greet-widget.js" defer></script>
+  <script src="word-game.js"></script>
+  <script src="wordGame-widget.js"></script>
+  <script src="enough-airtime.js"></script>
+  <script src="totalphonebill.js"></script>
+  <script src="https://unpkg.com/alpinejs" defer></script>
+  <script>
+    console.log(greet("Nkosingiphile"));
+  </script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <h1>AlpineJS widgets for Bootcamp functions</h1>
+
+  <div class="blocks">
+    <div class="widget">
+      <h2>Greet Me</h2>
+      <div class="block" x-data="{ name: '', greeting: '' }">
+        <label for="name">Greet this name:</label>
+        <input type="text" x-model="name" placeholder="Enter your name">
+        <button x-on:click="greeting = greet(name)">Greet</button>
+        <p class="message" x-text="greeting"></p>
+        <button x-on:click="greeting = ''">Clear</button>
+      </div>
+    </div>
+
+    <div class="widget">
+      <h2>Word Game Widget</h2>
+      <div class="block" x-data="{
+                        sentence: '',
+                        longWord: '',
+                        shortWord: '',
+                        sumOfLetters: '',
+                        solve() {
+                          const words = this.sentence.split(' ');
+                          let longestWord = '';
+                          let shortestWord = '';
+                          let totalLetters = 0;
+                      
+                          words.forEach(word => {
+                            if (word.length > longestWord.length) {
+                              longestWord = word;
+                            }
+                            if (shortestWord === '' || word.length < shortestWord.length) {
+                              shortestWord = word;
+                            }
+                            totalLetters += word.length;
+                          });
+                      
+                          this.longWord = 'Longest word: ' + longestWord;
+                          this.shortWord = 'Shortest word: ' + shortestWord;
+                          this.sumOfLetters = 'Sum of letters: ' + totalLetters;
+                        }
+                      }">
+        <div>
+          <label for="words">Sentence:</label>
+          <input type="text" x-model="sentence" id="words">
+        </div>
+
+        <div>
+          <button x-on:click="solve()">Solve</button>
+        </div>
+
+        <div x-show="longWord.length > 0" class="message" x-text="longWord"></div>
+        <div x-show="shortWord.length > 0" class="message" x-text="shortWord"></div>
+        <div x-show="sumOfLetters.length > 0" class="message" x-text="sumOfLetters"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="blocks">
+    <div class="widget">
+      <h2>Enough Airtime</h2>
+      <div class="block" x-data="{
+           projectedUsage:'',
+           availAirtime: '',
+           remainingAirtime:''}">
+        <label for="projected-usage">Projected Usage:</label>
+        <input type="text" id="projected-usage" x-model="projectedUsage" placeholder="e.g call,sms,data">
+        <br>
+        <label for="avail-airtime">Available Airtime:</label>
+        <input type="number" id="avail-airtime" x-model="availAirtime" placeholder="5.00">
+        <br>
+        <button x-on:click="remainingAirtime = calculateRemainingAirtime(projectedUsage, availAirtime)">
+          Calculate
+        </button>
+        <p class="message" x-text="'Remaining Airtime: ' + remainingAirtime"></p>
+      </div>
+    </div>
+
+    <div class="widget">
+      <h2>Total Phone Bill</h2>
+      <div class="block">
+        <label for="billList">Calls and SMSes:</label>
+        <input type="text" id="billList" placeholder="Enter phone string">
+        <button onclick="totalPhoneBill()">Enter</button>
+        <br><br>
+        <div class="message" id="totalBill"></div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
