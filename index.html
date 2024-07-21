@@ -1,103 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Widgets</title>
-  <script src="greet.js"></script>
-  <script src="greet-widget.js" defer></script>
-  <script src="word-game.js"></script>
-  <script src="wordGame-widget.js"></script>
-  <script src="enough-airtime.js"></script>
-  <script src="totalphonebill.js"></script>
   <script src="https://unpkg.com/alpinejs" defer></script>
+  <script src="greet.js" defer></script>
+  <script src="greet-widget.js" defer></script>
+  <script src="word-game.js" defer></script>
+  <script src="wordGame-widget.js" defer></script>
+  <script src="enough-airtime.js" defer></script>
+  <script src="totalphonebill.js" defer></script>
   <link rel="stylesheet" href="style.css">
-</head>
-<style>
-  body {
-    background-color: slategray;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #fff;
-    margin: 0;
-    padding: 20px;
-    text-align: center;
-}
-
-h1 {
-    margin-bottom: 30px;
-}
-
-.blocks {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.widget {
-    background-color: #4A6C6F;
-    border-radius: 1em;
-    padding: 20px;
-    margin: 10px;
-    width: 300px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.block {
-    margin-top: 15px;
-}
-
-label {
-    display: block;
-    margin-bottom: 8px;
-}
-
-input[type="text"], input[type="number"] {
-    width: calc(100% - 20px);
-    padding: 10px;
-    margin-bottom: 10px;
-    border: none;
-    border-radius: 5px;
-}
-
-button {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: lightslategray;
-    color: #fff;
-    font-size: 16px;
-}
-
-button:hover {
-    background-color: #FF7043;
-}
-
-.message {
-    margin-top: 10px;
-    font-weight: bold;
-}
-
-.site-footer {
-    margin-top: 30px;
-    font-size: 14px;
-    color: #fff;
-}
-
-@media (min-width: 1000px) {
-    .blocks {
-        flex-wrap: nowrap;
+  <style>
+    body {
+      background-color: slategray;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
     }
-}
 
-</style>
+    h1 {
+        margin-bottom: 30px;
+    }
 
+    .blocks {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .widget {
+        background-color: #4A6C6F;
+        border-radius: 1em;
+        padding: 20px;
+        margin: 10px;
+        width: 300px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .block {
+        margin-top: 15px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    input[type="text"], input[type="number"] {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 10px;
+        border: none;
+        border-radius: 5px;
+    }
+
+    button {
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: lightslategray;
+        color: #fff;
+        font-size: 16px;
+    }
+
+    button:hover {
+        background-color: #FF7043;
+    }
+
+    .message {
+        margin-top: 10px;
+        font-weight: bold;
+    }
+
+    .site-footer {
+        margin-top: 30px;
+        font-size: 14px;
+        color: #fff;
+    }
+
+    @media (min-width: 1000px) {
+        .blocks {
+            flex-wrap: nowrap;
+        }
+    }
+  </style>
+</head>
 <body>
   <h1>AlpineJS Widgets for Bootcamp Functions</h1>
 
   <div class="blocks">
+    <!-- Greet Widget -->
     <div class="widget">
       <h2>Greet Me</h2>
       <div class="block" x-data="{ name: '', greeting: '' }">
@@ -109,6 +107,7 @@ button:hover {
       </div>
     </div>
 
+    <!-- Word Game Widget -->
     <div class="widget">
       <h2>Word Game Widget</h2>
       <div class="block" x-data="{
@@ -154,12 +153,19 @@ button:hover {
   </div>
 
   <div class="blocks">
+    <!-- Enough Airtime Widget -->
     <div class="widget">
       <h2>Enough Airtime</h2>
       <div class="block" x-data="{
-           projectedUsage:'',
+           projectedUsage: '',
            availAirtime: '',
-           remainingAirtime:''}">
+           remainingAirtime: '',
+           calculateRemainingAirtime(projectedUsage, availAirtime) {
+              // Assume airtime calculation logic here
+              // For example:
+              return availAirtime - projectedUsage; // Example logic, update with actual calculation
+           }
+        }">
         <label for="projected-usage">Projected Usage:</label>
         <input type="text" id="projected-usage" x-model="projectedUsage" placeholder="e.g call,sms,data">
         <br>
@@ -173,21 +179,21 @@ button:hover {
       </div>
     </div>
 
-    <div class="widget">
+    <!-- Total Phone Bill Widget -->
+      <div class="widget">
       <h2>Total Phone Bill</h2>
-      <div class="block" x-data="{ phoneUsage: '', totalBill: '' }">
-        <label for="phone-usage">Calls and SMSes:</label>
-        <input type="text" id="phone-usage" x-model="phoneUsage" placeholder="Enter phone string">
-        <button x-on:click="totalBill = totalPhoneBill(phoneUsage)">Enter</button>
-        <br><br>
-        <div class="message" x-text="'Total Bill: ' + totalBill"></div>
+        <label for="billList">Calls and SMSes</label>
+        <input type="text" id="billList" placeholder="Enter phone string">
+        <button onclick="totalPhoneBill()">Enter</button>
+        <br>
+        <br>
+        <div class="message" id="totalBill"></div>
       </div>
     </div>
   </div>
 
   <footer class="site-footer">
-    &copy; MntimandeConsultingServices🐊
+    &copy; MntimandeConsultingServices 🐊
   </footer>
 </body>
-
 </html>
